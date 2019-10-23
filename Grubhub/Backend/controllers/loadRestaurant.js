@@ -2,7 +2,7 @@ const Restaurant = require('../models/Restaurant');
 const loadRestaurant = (req, res, connPool) =>{
     console.log('Inside load restaurant ')
     const{id} = req.body;
-
+    console.log('Req body',req.body)
 
     Restaurant.find({ _id: id }, function (err, rest) {
         if (err) throw err

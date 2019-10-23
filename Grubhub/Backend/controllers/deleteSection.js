@@ -5,14 +5,6 @@ const deleteSection = (req, res, connPool) =>{
    console.log('Inside delete section ', req.body)
     const {section_name,id} = req.body;
 
-  //   Restaurant.find({$and:[{"_id":id},{"sections":{$elemMatch:  {section_name:sectionName}}}]},{"sections.menu":{$elemMatch:  {menu_name:menu_name_old}}}]}, function(err, user) {
-  //     if (err) throw err;
-  //     console.log('Menuuuuuuuuuuuu',user,'Type',typeof user)
-     
-
-  //     let obj =  user[0].sections.filter((elem)=>{
-  //         return elem.section_name===section_name
-  // })
 
   Restaurant.update(
     {'_id':id}, 

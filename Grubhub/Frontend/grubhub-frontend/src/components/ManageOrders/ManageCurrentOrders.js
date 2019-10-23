@@ -76,13 +76,13 @@ class ManageCurrentOrders extends Component{
     </tr>
   </thead>
   <tbody> 
-  {element.items.map((elem)=>{
+  {element.orderItems.map((elem)=>{
 
     
 return  <tr>
-<td>{elem.item_name}</td>
-<td>{elem.item_price}</td>
-<td>{elem.item_quantity}</td>
+<td>{elem.menu_name}</td>
+<td>{elem.menu_price}</td>
+<td>{elem.quantity}</td>
 
 </tr>
   })}
@@ -108,7 +108,7 @@ Status:<font color="red">{element.status}</font>
   </div>
 
 </form>
-<button class="btn btn-danger" onClick={()=>this.changeOrderState(element.orderid)}>Submit</button>
+<button class="btn btn-danger" onClick={()=>this.changeOrderState(element._id)}>Submit</button>
 <br></br><br/><hr/>
   </div>
       }

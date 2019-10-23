@@ -71,7 +71,7 @@ class LoadRestaurant extends Component {
                     <p>${value.menu_price}</p>
                     
                     <input type='button' value='-' class='qtyminus' onClick={() => this.decrease(value)} field='quantity' />
-                    <p id={value.menu_id}>0</p>
+                    <p id={value.menu_name}>0</p>
                     <input type='button' value='+' class='qtyplus' onClick={() => this.increase(value)} field='quantity' />
                    
                 </div> </div>
@@ -89,10 +89,10 @@ return menuMap
     increase = (item) => {
         let orderDatatemp = this.state.orderData;
         for (let i = 0; i < orderDatatemp.length; i++) {
-            if (orderDatatemp[i].menu_id === item.menu_id) {
+            if (orderDatatemp[i].menu_name === item.menu_name) {
                 console.log('here matched')
                 orderDatatemp[i].quantity += 1
-                document.getElementById(item.menu_id).innerHTML = orderDatatemp[i].quantity
+                document.getElementById(item.menu_name).innerHTML = orderDatatemp[i].quantity
                 // let total = this.state.total
                 // total+=parseInt(item.menu_price, 10)
                 this.setState({
@@ -105,7 +105,7 @@ return menuMap
             }
         }
 
-        document.getElementById(item.menu_id).innerHTML = 1
+        document.getElementById(item.menu_name).innerHTML = 1
         orderDatatemp.push({ ...item, quantity: 1 })
         // let total = this.state.total
         // console.log('Price is'+parseInt(item.menu_price, 10));
@@ -124,15 +124,13 @@ return menuMap
         console.log('orderDatatemp', orderDatatemp.length)
         for (let i = 0; i < orderDatatemp.length; i++) {
             console.log('hereree in the decrease')
-            if (orderDatatemp[i].menu_id === item.menu_id) {
+            if (orderDatatemp[i].menu_name === item.menu_name) {
                 orderDatatemp[i].quantity -= 1
                 if (orderDatatemp[i].quantity === 0) {
-                    document.getElementById(item.menu_id).innerHTML = 0
+                    document.getElementById(item.menu_name).innerHTML = 0
                     orderDatatemp.splice(i, 1);
-
-
                 }
-                else { document.getElementById(item.menu_id).innerHTML = orderDatatemp[i].quantity }
+                else { document.getElementById(item.menu_name).innerHTML = orderDatatemp[i].quantity }
                 this.setState({
                     orderData: orderDatatemp
                 });
@@ -156,10 +154,14 @@ return menuMap
 
     orderNow = (total) => {
         let cust_id = cookie.load('cust_id')
+        let cust_fname = cookie.load('cust_fname')
+        let cust_lname = cookie.load('cust_lname')
+        let cust_address = cookie.load('cust_address')
+
         let orderItems = this.state.orderData;
         let restaurant_id = this.state.restaurantid;
         let status = "New"
-        this.props.order({ cust_id: cust_id, orderItems: orderItems, restaurant_id: restaurant_id, status: status, rest_name: this.state.rest_name, order_total: total });
+        this.props.order({cust_fname:cust_fname,cust_lname:cust_lname,cust_address:cust_address, cust_id: cust_id, orderItems: orderItems, restaurant_id: restaurant_id, status: status, rest_name: this.state.rest_name, order_total: total });
     }
 
     viewSection = (data) => {
