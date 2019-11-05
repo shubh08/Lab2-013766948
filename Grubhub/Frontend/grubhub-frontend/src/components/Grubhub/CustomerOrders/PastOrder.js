@@ -17,7 +17,7 @@ render(){
     if(this.props.pastData.length>0){
      orders =  this.props.pastData.map((element)=>{
     if((element.status==='Delivered')||(element.status==='Cancel')) {        
-  return <div>  <h2><b>Restaurant Name:</b>{element.restname} <b><i>Order ID : {element.orderid} </i></b></h2>
+  return <div>  <h2><b>Restaurant Name:</b>{element.restname} <b><i>Order ID : {element._id} </i></b></h2>
   <table class="table">
 <thead class="thead-dark">
   <tr>
@@ -27,7 +27,7 @@ render(){
   </tr>
 </thead>
 <tbody> 
-  {element.items.map((elem)=>{
+  {element.orderItems.map((elem)=>{
 return  <tr>
 
 <td>{elem.menu_name}</td>

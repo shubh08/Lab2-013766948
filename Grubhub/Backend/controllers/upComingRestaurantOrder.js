@@ -15,7 +15,7 @@ const upComingRestaurantOrder = (req, res, connPool) => {
         });
 
 
-        res.end(JSON.stringify({status:"success",upComingRestaurantOrder:rest}));
+        res.end(JSON.stringify({status:"success",upComingRestaurantOrder:rest,type:"Owner"}));
 
     })
     // connPool.getConnection((error, conn) => {

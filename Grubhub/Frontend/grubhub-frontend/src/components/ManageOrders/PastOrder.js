@@ -17,7 +17,7 @@ render(){
     if((element.status==='Delivered')||(element.status==='Cancel')) {        
   return <div> 
   
-  <h4><b>Customer Name:</b>{element.cust_fname} {element.cust_lname} <b><i>Order ID : {element.orderid} </i></b></h4> 
+  <h4><b>Customer Name:</b>{element.cust_fname} {element.cust_lname} <b><i>Order ID : {element._id} </i></b></h4> 
   <p>Customer Address:{element.cust_address}</p>
   <table class="table">
   <thead class="thead-dark">

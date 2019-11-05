@@ -8,6 +8,7 @@ export const valueMapper = (e) =>{
 
 export const loginAsync = (obj) =>{
     console.log('Herere in Async',obj);
+    localStorage.setItem("JCT",obj.token);
     return {type:'Login',value:obj};
 }
 
@@ -20,9 +21,12 @@ export const loadProfileDataAsync = (obj) =>{
 
 export const loadProfileData = (data) =>{
     console.log('Preapring for Launch',data)
+    let accessToken = localStorage.getItem('JCT')
     return dispatch =>{
     axios.defaults.withCredentials = true;
-    axios.post('http://localhost:3001/loadProfileData',data)
+    axios.post('http://localhost:3001/loadProfileData',data,{
+        headers:{Authorization:accessToken}
+    })
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -66,9 +70,10 @@ export const updateProfileDataAsync = (obj) =>{
 
 export const updateProfileData = (data) =>{
     console.log('Preapring for Launch update',data)
+    let accessToken = localStorage.getItem('JCT')
     return dispatch =>{
     axios.defaults.withCredentials = true;
-    axios.post('http://localhost:3001/update',data)
+    axios.post('http://localhost:3001/update',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -205,12 +210,13 @@ export const loadSectionDataAsync = (obj) =>{
 
 export const loadSectionData = (data) =>{
     console.log('Preapring for Launch Section Data',data)
+    let accessToken = localStorage.getItem('JCT')
     return dispatch =>{
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/loadSectionData',data)
+    axios.post('http://localhost:3001/loadSectionData',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -256,12 +262,13 @@ export const addSectionDataAsync = (obj) =>{
 
 export const addSectionData = (data) =>{
     console.log('Preapring for Launch Add Section Data',data)
+    let accessToken = localStorage.getItem('JCT')
     return dispatch =>{
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/addSection',data)
+    axios.post('http://localhost:3001/addSection',data ,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -298,16 +305,17 @@ export const addSectionData = (data) =>{
 
 
 
-//updateSection   updateSectionData
+//updateSection   
 
 export const updateSectionData = (data) =>{
+    let accessToken = localStorage.getItem('JCT')
     console.log('Preapring for Launch Update Section Data',data)
     return dispatch =>{
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/updateSection',data)
+    axios.post('http://localhost:3001/updateSection',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -353,13 +361,14 @@ export const loadMenuDataAsync = (obj) =>{
 
 
 export const loadMenuData = (data) =>{
+    let accessToken = localStorage.getItem('JCT')
     console.log('Preapring for Launch Load Menu Data',data)
     return dispatch =>{
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/loadMenu',data)
+    axios.post('http://localhost:3001/loadMenu',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -414,13 +423,14 @@ export const addMenuDataAsync = (obj) =>{
 
 
 export const addMenuData = (data) =>{
+    let accessToken = localStorage.getItem('JCT')
     console.log('Preapring for Launch Add Menu Data',data)
     return dispatch =>{
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/addMenu',data)
+    axios.post('http://localhost:3001/addMenu',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -465,13 +475,14 @@ export const updateMenuAsync = (obj) =>{
 
 
 export const updateMenu = (data) =>{
-    console.log('Preapring for Launch Update Menu Data',data)
+    let accessToken = localStorage.getItem('JCT')
+    console.log('Preapring for Launch Update Menu Data')
     return dispatch =>{
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/updateMenu',data)
+    axios.post('http://localhost:3001/updateMenu',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -521,12 +532,13 @@ export const deleteSectionDataAsync = (obj) =>{
 
 export const deleteSectionData = (data) =>{
     console.log('Preapring for Launch Delete Section Data',data)
+    let accessToken = localStorage.getItem('JCT')
     return dispatch =>{
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/deleteSection',data)
+    axios.post('http://localhost:3001/deleteSection',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -575,12 +587,13 @@ export const deleteMenuAsync = (obj) =>{
 
 export const deleteMenu = (data) =>{
     console.log('Preapring for Launch Delete Menu Data',data)
+    let accessToken = localStorage.getItem('JCT')
     return dispatch =>{
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/deleteMenu',data)
+    axios.post('http://localhost:3001/deleteMenu',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -628,12 +641,13 @@ export const searchDishesAsync = (obj) =>{
 
 export const searchDishes = (data) =>{
     console.log('Preapring for Launch Search Dishes',data)
+    let accessToken = localStorage.getItem('JCT')
     return dispatch =>{
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/searchDishes',data)
+    axios.post('http://localhost:3001/searchDishes',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -679,12 +693,13 @@ export const loadRestaurantAsync = (obj) =>{
 
 export const loadRestaurant = (data) =>{
     console.log('Preparing for Load Restaurant',data)
+    let accessToken = localStorage.getItem('JCT')
     return dispatch =>{
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/loadRestaurant',data)
+    axios.post('http://localhost:3001/loadRestaurant',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -730,12 +745,13 @@ export const orderAsync = (obj) =>{
 
 export const order = (data) =>{
     console.log('Preparing for order ',data)
+    let accessToken = localStorage.getItem('JCT')
     return dispatch =>{
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/order',data)
+    axios.post('http://localhost:3001/order',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -784,12 +800,13 @@ export const pastorderAsync = (obj) =>{
 
 export const pastorder = (data) =>{
     console.log('Preparing for order ',data)
+    let accessToken = localStorage.getItem('JCT')
     return dispatch =>{
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/pastorder',data)
+    axios.post('http://localhost:3001/pastorder',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -836,12 +853,13 @@ export const upComingOrderAsync = (obj) =>{
 
 export const upComingOrder = (data) =>{
     console.log('Preparing for order ',data)
+    let accessToken = localStorage.getItem('JCT')
     return dispatch =>{
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/upComingOrder',data)
+    axios.post('http://localhost:3001/upComingOrder',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -891,12 +909,13 @@ export const upComingRestaurantOrderAsync = (obj) =>{
 
 export const upComingRestaurantOrder = (data) =>{
     console.log('Preparing for order ',data)
+    let accessToken = localStorage.getItem('JCT')
     return dispatch =>{
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/upComingRestaurantOrder',data)
+    axios.post('http://localhost:3001/upComingRestaurantOrder',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -931,6 +950,66 @@ export const upComingRestaurantOrder = (data) =>{
     }
 }
 
+//SendMessage
+
+
+
+export const sendMessage = (data) =>{
+    console.log('Sending Message ',data)
+    let accessToken = localStorage.getItem('JCT')
+    return dispatch =>{
+    //set the with credentials to true
+    axios.defaults.withCredentials = true;
+    
+    //make a post request with the user data
+    axios.post('http://localhost:3001/sendMessage',data,{headers:{Authorization:accessToken}})
+        .then(response => {
+            console.log("Status Code : ",response.data);
+            if(response.status === 200){
+                if(response.data.status==="failure")
+                {
+                    dispatch(upComingRestaurantOrderAsync({
+                        authFlag : false,
+                        loginStatus:'failure'
+                    })) 
+                }
+               
+                else{
+                    if(response.data.type=='Customer')
+                    {
+                        dispatch(upComingRestaurantOrderAsync({
+                            authFlag : true,
+                            loginStatus:'success',
+                            upComingOrderData:response.data.dataOrder
+                        }))
+                    }
+
+                    else{
+                        dispatch(upComingRestaurantOrderAsync({
+                            authFlag : true,
+                            loginStatus:'success',
+                            upComingRestaurantOrderData:response.data.upComingRestaurantOrder
+                        }))
+                    }
+                 
+                }
+               
+            }else{
+               
+            }
+        }).catch(error => {
+            console.log('Inside exception throw!!')
+            dispatch(upComingRestaurantOrderAsync({
+                authFlag : false,
+                loginStatus:'failure'
+            }))
+            
+        })
+        
+    }
+}
+
+
 
 //Change Order State
 
@@ -938,12 +1017,13 @@ export const upComingRestaurantOrder = (data) =>{
 
 export const changeOrderStateProps = (data) =>{
     console.log('Preparing for order ',data)
+    let accessToken = localStorage.getItem('JCT')
     return dispatch =>{
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/changeOrderState',data)
+    axios.post('http://localhost:3001/changeOrderState',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -985,12 +1065,13 @@ export const changeOrderStateProps = (data) =>{
 
 export const uploadMenu = (data) =>{
     console.log('Preparing for image upload ',data)
+    let accessToken = localStorage.getItem('JCT')
     return dispatch =>{
     //set the with credentials to true
     
     let fd = new FormData();
 
-    const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+    const config = { headers: { 'Content-Type': 'multipart/form-data',Authorization:accessToken } };
     fd.append('image',data.image)  
     fd.append('section_name',data.section_name)  
     fd.append('id',data.id)

@@ -42,6 +42,9 @@ const saveImagetoMenu = require('./controllers/saveImagetoMenu');
 const saveImagetoCustomer = require('./controllers/saveImagetoCustomer'); 
 const saveImagetoOwner = require('./controllers/saveImagetoOwner');  //saveImagetoCustomer  //saveImagetoOwner //saveImagetoRestaurant
 const saveImagetoRestaurant = require('./controllers/saveImagetoRestaurant');
+const Customer = require('./models/Customer');
+const Restaurant = require('./models/Restaurant');
+const sendMessage = require('./controllers/sendMessage')
 
 
 const saltRounds = 10;
@@ -91,28 +94,47 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname+'/uploads'));
 
 var jwtOptions = {}
-jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt');
 jwtOptions.secretOrKey = 'cmpe273';
 
 var strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
-  console.log('payload received', jwt_payload);
+  console.log('payload received--------------------------', jwt_payload);
+  console.log('ID------------------------------', jwt_payload._id);
   // usually this would be a database call:
-  var user = users[_.findIndex(users, {id: jwt_payload.id})];
-  if (user) {
-    next(null, user);
-  } else {
-    next(null, false);
-  }
+  Customer.find({ _id: jwt_payload._id }, function (err, cust) {
+
+    if (cust) {
+        next(null, cust);
+      } else {
+
+        Restaurant.find({ _id: jwt_payload._id }, function (err, rest) {
+  
+            if (rest) {
+                next(null, rest);
+              } else {
+                next(null, false);
+              }
+        
+          })
+      }
+
+  })
+
 });
 
-passport.use(strategy);
+
+
+
+
+passport.use('jwt',strategy);
+
 
 
 
 // Passport middleware
 app.use(passport.initialize());
 // Passport config
-require("./config/passport")(passport);
+//require("./config/passport")(passport);
 
 //Allow Access Control
 app.use(function (req, res, next) {
@@ -161,7 +183,7 @@ app.post('/signin',(req,res)=>{
 })
 
 // User Update
-app.post('/update',(req,res)=>{
+app.post('/update',passport.authenticate('jwt', { session: false }),(req,res)=>{
     console.log('Inside update info..',req.body);
     if(req.body.type==='customer')
     {
@@ -175,7 +197,7 @@ app.post('/update',(req,res)=>{
 })  
 
 //Load Profile Data
-app.post('/loadProfileData',(req,res)=>{
+app.post('/loadProfileData',passport.authenticate('jwt', { session: false }),(req,res)=>{
     console.log('Inside loading of profile info..',req.body);
     if(req.body.type==='customer')
     {
@@ -191,7 +213,7 @@ app.post('/loadProfileData',(req,res)=>{
 //loadSectionData
 
 
-app.post('/loadSectionData',(req,res)=>{
+app.post('/loadSectionData',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
     console.log('Inside load section data here',req.body)
 
@@ -201,7 +223,7 @@ app.post('/loadSectionData',(req,res)=>{
 
 //addSection
 
-app.post('/addSection',(req,res)=>{
+app.post('/addSection',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
     addSection.addSection(req, res, connPool);
 
@@ -210,7 +232,7 @@ app.post('/addSection',(req,res)=>{
 
 //updateSection
 
-app.post('/updateSection',(req,res)=>{
+app.post('/updateSection',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
     updateSection.updateSection(req, res, connPool);
 
@@ -218,7 +240,7 @@ app.post('/updateSection',(req,res)=>{
 
 //delete Section
 
-app.post('/deleteSection', function (req, res) {
+app.post('/deleteSection',passport.authenticate('jwt', { session: false }), function (req, res) {
     console.log("Inside delete function");
 
     deleteSection.deleteSection(req, res, connPool)
@@ -226,8 +248,16 @@ app.post('/deleteSection', function (req, res) {
 });
 
 
+//sendMessage
+
+app.post('/sendMessage',passport.authenticate('jwt', { session: false }), function (req, res) {
+    console.log("Inside send  Message");
+    sendMessage.sendMessage(req, res)
+  
+});
+
 //addMenu  
-app.post('/addMenu',(req,res)=>{
+app.post('/addMenu',passport.authenticate('jwt', { session: false }),(req,res)=>{
     console.log('File path',req.file)
     addMenu.addMenu(req, res, connPool);
 
@@ -235,7 +265,7 @@ app.post('/addMenu',(req,res)=>{
 
 
 //Upload  
-app.post('/upload',upload.single('image'),(req,res)=>{
+app.post('/upload',passport.authenticate('jwt', { session: false }),upload.single('image'),(req,res)=>{
     console.log('File path',req.body.id)
     // addMenu.addMenu(req, res, connPool);\
 
@@ -264,7 +294,7 @@ app.post('/upload',upload.single('image'),(req,res)=>{
 // })
 
 //loadMenu
-app.post('/loadMenu',(req,res)=>{
+app.post('/loadMenu',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
     loadMenu.loadMenu(req, res, connPool);
    // res.json("Success! You can not see this without a token");
@@ -272,7 +302,7 @@ app.post('/loadMenu',(req,res)=>{
 
 //Delete Menu
 
-app.post('/deleteMenu',(req,res)=>{
+app.post('/deleteMenu',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
     deleteMenu.deleteMenu(req, res, connPool);
 
@@ -281,7 +311,7 @@ app.post('/deleteMenu',(req,res)=>{
 
 //updateMenu
 
-app.post('/updateMenu',(req,res)=>{
+app.post('/updateMenu',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
     updateMenu.updateMenu(req, res, connPool);
 
@@ -289,7 +319,7 @@ app.post('/updateMenu',(req,res)=>{
 
 //searchDishes
 
-app.post('/searchDishes',(req,res)=>{
+app.post('/searchDishes',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
     searchDishes.searchDishes(req, res, connPool);
 
@@ -298,14 +328,14 @@ app.post('/searchDishes',(req,res)=>{
 
 //Load Restaurant  
 
-app.post('/loadRestaurant',(req,res)=>{
+app.post('/loadRestaurant',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
     loadRestaurant.loadRestaurant(req, res, connPool);
 
 })
 
 //order
-app.post('/order',(req,res)=>{
+app.post('/order',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
     order.order(req, res, connPool);
 
@@ -313,28 +343,28 @@ app.post('/order',(req,res)=>{
 
 // Load Past Data
 
-app.post('/pastorder',(req,res)=>{
+app.post('/pastorder',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
     pastorder.pastorder(req, res, connPool);
 
 })
 
 // Load Upcoming order  upComingOrder
-app.post('/upComingOrder',(req,res)=>{
+app.post('/upComingOrder',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
     upComingOrder.upComingOrder(req, res, connPool);
 
 })
 
 //Load Upcoming Restaurant Order  
-app.post('/upComingRestaurantOrder',(req,res)=>{
+app.post('/upComingRestaurantOrder',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
     upComingRestaurantOrder.upComingRestaurantOrder(req, res, connPool);
 
 })
 
 // Change Order State  changeOrderState
-app.post('/changeOrderState',(req,res)=>{
+app.post('/changeOrderState',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
     changeOrderState.changeOrderState(req, res, connPool);
 

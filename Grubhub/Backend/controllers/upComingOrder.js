@@ -25,7 +25,7 @@ const upComingOrder = (req, res, connPool) =>{
             'Content-Type': 'application/json'
         });
        
-        res.end(JSON.stringify({status:"success",dataOrder:rest}));
+        res.end(JSON.stringify({status:"success",dataOrder:rest,type:"Customer"}));
 
     })
 }

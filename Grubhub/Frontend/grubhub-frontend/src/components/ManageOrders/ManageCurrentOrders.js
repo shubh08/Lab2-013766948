@@ -48,6 +48,21 @@ class ManageCurrentOrders extends Component{
 
      }
 
+       openMessages = (id)=>{
+      let div = document.getElementById(id);
+    console.log('Inside Load Message', div);
+    if (div.style.display === "none") {
+      div.style.display = "block";
+    }
+  }
+
+  sendMessage = (orderid)=>{
+    let owner_id = cookie.load('owner_id')
+     console.log('The message to be sent is',this.state.message)
+     this.props.sendMessageProps({type:'Owner',order_id:orderid,message:this.state.message,id:owner_id});
+
+    }
+
 
      changeOrderState = (orderid)=>{
       let owner_id = cookie.load('owner_id')
@@ -64,7 +79,7 @@ class ManageCurrentOrders extends Component{
       if((element.status==='New')||(element.status==='Preparing')||(element.status==='Ready')) {
                
   return <div>
-    <h4><b>Customer Name:</b>{element.cust_fname} {element.cust_lname} <b><i>Order ID : {element.orderid} </i></b></h4> 
+    <h4><b>Customer Name:</b>{element.cust_fname} {element.cust_lname} <b><i>Order ID : {element._id} </i></b></h4> 
     <p>Customer Address:{element.cust_address}</p>
    
     <table class="table">
@@ -109,7 +124,24 @@ Status:<font color="red">{element.status}</font>
 
 </form>
 <button class="btn btn-danger" onClick={()=>this.changeOrderState(element._id)}>Submit</button>
-<br></br><br/><hr/>
+<br/> <br/>
+<button class="btn btn-danger" onClick={()=>this.openMessages(element._id)}>View Messages</button>
+  
+  <div id={element._id} style={{ display: 'none' }}>
+  
+  {element.messages.map((elem)=>{
+return <div>
+  {elem.type=='Owner'?<p><b>You</b>: {elem.message}</p>:<p><b>Customer</b>: {elem.message}</p>}
+</div>
+  })}
+
+  <textarea name="message" onChange={this.valueChange} placeholder="Type your message here!!" ></textarea> <br/>
+  <button class="btn btn-primary" onClick={()=>this.sendMessage(element._id)}>Send Message</button>
+  </div>
+<br></br><br/>
+
+
+<hr/>
   </div>
       }
       })}
@@ -153,6 +185,7 @@ const mapState = (store) =>{
     loadProfileData:(data)=>dispach(actions.loadProfileData(data)),
     changeOrderStateProps:(data)=>dispach(actions.changeOrderStateProps(data)),
     upComingRestaurantOrder:(data)=>dispach(actions.upComingRestaurantOrder(data)),
+    sendMessageProps:(data)=>dispach(actions.sendMessage(data))
     // decAge:() => dispach({type:'Agedo'})
   }
   }

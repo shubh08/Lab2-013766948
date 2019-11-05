@@ -16,7 +16,8 @@ class UpcomingOrder extends Component{
     super(props)
     this.state={
       orderState:"",
-      pastOrderView:false
+      pastOrderView:false,
+      message:""
     }
 
   }
@@ -34,11 +35,38 @@ class UpcomingOrder extends Component{
      }
 
 
+     valueChange=(event)=>{
+      const {name,value} = event.target;
+    this.setState({
+        [name]:value
+    });
+
+     }
+
      setPastView=()=>{
       this.setState({
        pastOrderView:!this.state.pastOrderView
       })
     }
+
+    openMessages = (id)=>{
+      let div = document.getElementById(id);
+    console.log('Inside Load Message', div);
+    if (div.style.display === "none") {
+      div.style.display = "block";
+    }
+
+    else {
+      div.style.display = "none";
+    }
+    }
+
+    sendMessage = (orderid)=>{
+     let cust_id = cookie.load('cust_id')
+      console.log('The message to be sent is',this.state.message)
+      this.props.sendMessageProps({type:'Customer',order_id:orderid,message:this.state.message,id:cust_id});
+
+     }
 
     render(){
 
@@ -49,7 +77,7 @@ class UpcomingOrder extends Component{
       if((element.status==='New')||(element.status==='Preparing')||(element.status==='Ready') ) {    
         console.log('Loading order item',element)     
   return <div> 
-    <h2><b>Restaurant Name:</b>{element.restname} <b><i>Order ID : {element.orderid} </i></b></h2>
+    <h2><b>Restaurant Name:</b>{element.rest_name} <b><i>Order ID : {element._id} </i></b></h2>
     <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -73,6 +101,22 @@ return <tr>
   Status:<font color="red">{element.status}</font>  
   <br></br>
   Total : <b>${element.order_total}</b>
+  
+  <button class="btn btn-danger" onClick={()=>this.openMessages(element._id)}>View Messages</button>
+  
+  <div id={element._id} style={{ display: 'none' }}>
+  
+  {element.messages.map((elem)=>{
+return <div>
+  {elem.type=='Owner'?<p><b>Owner</b>: {elem.message}</p>:<p><b>You</b>: {elem.message}</p>}
+</div>
+  })}
+
+  <textarea name="message" onChange={this.valueChange} placeholder="Type your message here!!" ></textarea>
+  <br/>
+  <button class="btn btn-primary" onClick={()=>this.sendMessage(element._id)}>Send Message</button>
+  </div>
+  
   <br></br><hr></hr>
    </div>}
       })
@@ -118,6 +162,7 @@ const mapState = (store) =>{
     valueChangeObserver:(e) => dispach(actions.valueMapper(e)),
     loadProfileData:(data)=>dispach(actions.loadProfileData(data)),
     upComingOrder:(data)=>dispach(actions.upComingOrder(data)),
+    sendMessageProps:(data)=>dispach(actions.sendMessage(data))
     // decAge:() => dispach({type:'Agedo'})
   }
   }

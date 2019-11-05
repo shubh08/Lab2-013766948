@@ -39,7 +39,7 @@ const signinOwn = (req, res, connPool, bcrypt) =>{
                                 // res.end(JSON.stringify(response));
                                 res.json({
                                     success: true,
-                                    token: "Bearer " + token,
+                                    token: 'jwt ' + token,
                                     type:'owner',
                                     ...response
                                 });

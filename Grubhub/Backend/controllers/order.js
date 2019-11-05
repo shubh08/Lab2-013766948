@@ -2,7 +2,7 @@
 const Orders = require('../models/Orders');
 const order = (req, res, connPool) => {
     console.log('Inside order Items section ', req.body)
-    const { cust_id, restaurant_id, status, orderItems, rest_name, order_total } = req.body;
+    const { cust_id, restaurant_id, status, orderItems, rest_name, order_total,cust_fname,cust_lname } = req.body;
 
     var order = Orders({
         cust_id: cust_id,
@@ -10,7 +10,9 @@ const order = (req, res, connPool) => {
         status: status,
         rest_name: rest_name,
         order_total: order_total,
-        orderItems: orderItems
+        orderItems: orderItems,
+        cust_fname:cust_fname,
+        cust_lname:cust_lname
     });
 
 
