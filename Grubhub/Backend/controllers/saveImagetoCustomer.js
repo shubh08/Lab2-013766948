@@ -1,23 +1,16 @@
 const loadCustProfile =  require('./loadCustomerProfile');
-const Customer = require('../models/Customer');
-const saveImagetoCustomer = (req, res, connPool) =>{
-  
-    const {image,id} = req.body;
 
-    
-    Customer.findOneAndUpdate(
-        {"_id":id},
-            { 
-                "$set": {
-                    "cust_image":image
-                }
-            },
-            function(err,doc) {
-        if(err) throw err
-        loadCustProfile.loadCustProfile(req,res,connPool);
-    }
-        );
+const saveImagetoCustomer = (req, res, kafka) =>{
 
+    kafka.make_request('saveImagetoCustomer',req.body, function(err,results){
+        if(err){
+            res.send("error");
+        }
+        else{
+            loadCustProfile.loadCustProfile(req,res,kafka);
+        }
+    })
+ 
 }
 
 module.exports = {

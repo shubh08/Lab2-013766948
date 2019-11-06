@@ -1,48 +1,17 @@
 
-const upComingRestaurantOrder =  require('./upComingRestaurantOrder'); 
 const Orders = require('../models/Orders');
-const changeOrderState = (req, res, connPool) =>{
+upComingRestaurantOrder = require('../controllers/upComingRestaurantOrder');
+const changeOrderState = (req, res, kafka) =>{
    console.log('Inside update order state ', req.body)
-    const {status,order_id} = req.body;
-    Orders.findOneAndUpdate(
-        {"_id":order_id},
-            { 
-                "$set": {
-                    "status": status
-                }
-            },
-            function(err,doc) {
-                upComingRestaurantOrder.upComingRestaurantOrder(req,res,connPool);
-            }
-        );
-
-// connPool.getConnection((error,conn)=>{
+   kafka.make_request('changeOrderState',req.body, function(err,results){
+    if(err){
+        res.send("error");
+    }
+    else{
+        upComingRestaurantOrder.upComingRestaurantOrder(req,res,kafka);
+    }
+})
    
-//     let queryAddSection = 'update orders set status=? where order_id=?';
-//     console.log(queryAddSection);
-//     conn.query(queryAddSection,[status,order_id],(error,resultgetStatus)=>{
-
-//         if(error)
-//         {
-//             throw error;
-//         }
-
-//         else
-//         {
-//             conn.release();
-//             upComingRestaurantOrder.upComingRestaurantOrder(req,res,connPool);
-       
-               
-            
-//         }
-
-        
-//     })
-   
-   
-   
-
-// })
 }
 
 module.exports = {

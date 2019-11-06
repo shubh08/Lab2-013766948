@@ -3,6 +3,7 @@ import './CustomerProfile.css';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
+import {reactAddress} from '../../global/globalVar'
 import cookie from 'react-cookies';
 import { Link } from 'react-router-dom';
 
@@ -199,7 +200,7 @@ class CustomerProfile extends Component {
             <div>
               Customer Image
                 <br />
-              <img src={'http://localhost:3001/' + this.props.cust_image} class="img1" style={{ height: "200px", width: "200px" }}></img>
+              <img src={reactAddress + this.props.cust_image} class="img1" style={{ height: "200px", width: "200px" }}></img>
               <a onClick={this.changeImage} class='customALign'>Edit</a>
             </div>
           </div>

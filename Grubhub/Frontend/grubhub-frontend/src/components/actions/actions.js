@@ -1,6 +1,8 @@
 
 import axios from 'axios'
 
+import {reactAddress} from '../../global/globalVar'
+
 export const valueMapper = (e) =>{
     return {type:'ValueChange',value:e};
 }
@@ -24,7 +26,8 @@ export const loadProfileData = (data) =>{
     let accessToken = localStorage.getItem('JCT')
     return dispatch =>{
     axios.defaults.withCredentials = true;
-    axios.post('http://localhost:3001/loadProfileData',data,{
+    console.log('Addres defined'+reactAddress+'loadProfileData');
+    axios.post(reactAddress+'loadProfileData',data,{
         headers:{Authorization:accessToken}
     })
         .then(response => {
@@ -73,7 +76,7 @@ export const updateProfileData = (data) =>{
     let accessToken = localStorage.getItem('JCT')
     return dispatch =>{
     axios.defaults.withCredentials = true;
-    axios.post('http://localhost:3001/update',data,{headers:{Authorization:accessToken}})
+    axios.post(reactAddress+'update',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -117,7 +120,7 @@ export const login = (data) =>{
     axios.defaults.withCredentials = true;
 
     //make a post request with the user data
-    axios.post('http://localhost:3001/signin',data)
+    axios.post(reactAddress+'signin',data)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -167,7 +170,7 @@ export const signUp = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/signup',data)
+    axios.post(reactAddress+'signup',data)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -216,7 +219,7 @@ export const loadSectionData = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/loadSectionData',data,{headers:{Authorization:accessToken}})
+    axios.post(reactAddress+'loadSectionData',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -268,7 +271,7 @@ export const addSectionData = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/addSection',data ,{headers:{Authorization:accessToken}})
+    axios.post(reactAddress+'addSection',data ,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -315,7 +318,7 @@ export const updateSectionData = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/updateSection',data,{headers:{Authorization:accessToken}})
+    axios.post(reactAddress+'updateSection',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -368,7 +371,7 @@ export const loadMenuData = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/loadMenu',data,{headers:{Authorization:accessToken}})
+    axios.post(reactAddress+'loadMenu',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -430,7 +433,7 @@ export const addMenuData = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/addMenu',data,{headers:{Authorization:accessToken}})
+    axios.post(reactAddress+'addMenu',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -482,7 +485,7 @@ export const updateMenu = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/updateMenu',data,{headers:{Authorization:accessToken}})
+    axios.post(reactAddress+'updateMenu',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -538,7 +541,7 @@ export const deleteSectionData = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/deleteSection',data,{headers:{Authorization:accessToken}})
+    axios.post(reactAddress+'deleteSection',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -593,7 +596,7 @@ export const deleteMenu = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/deleteMenu',data,{headers:{Authorization:accessToken}})
+    axios.post(reactAddress+'deleteMenu',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -647,7 +650,7 @@ export const searchDishes = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/searchDishes',data,{headers:{Authorization:accessToken}})
+    axios.post(reactAddress+'searchDishes',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -699,7 +702,7 @@ export const loadRestaurant = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/loadRestaurant',data,{headers:{Authorization:accessToken}})
+    axios.post(reactAddress+'loadRestaurant',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -751,7 +754,7 @@ export const order = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/order',data,{headers:{Authorization:accessToken}})
+    axios.post(reactAddress+'order',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -806,7 +809,7 @@ export const pastorder = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/pastorder',data,{headers:{Authorization:accessToken}})
+    axios.post(reactAddress+'pastorder',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -859,7 +862,7 @@ export const upComingOrder = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/upComingOrder',data,{headers:{Authorization:accessToken}})
+    axios.post(reactAddress+'upComingOrder',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -915,7 +918,7 @@ export const upComingRestaurantOrder = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/upComingRestaurantOrder',data,{headers:{Authorization:accessToken}})
+    axios.post(reactAddress+'upComingRestaurantOrder',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -962,7 +965,7 @@ export const sendMessage = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/sendMessage',data,{headers:{Authorization:accessToken}})
+    axios.post(reactAddress+'sendMessage',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -1023,7 +1026,7 @@ export const changeOrderStateProps = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/changeOrderState',data,{headers:{Authorization:accessToken}})
+    axios.post(reactAddress+'changeOrderState',data,{headers:{Authorization:accessToken}})
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -1082,7 +1085,7 @@ export const uploadMenu = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/upload', fd, config)
+    axios.post(reactAddress+'upload', fd, config)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){

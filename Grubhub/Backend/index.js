@@ -12,6 +12,8 @@ const passport = require("passport");
 
 var passportJWT = require("passport-jwt");
 
+const kafka = require('./kafka/kafka/client');
+
 var ExtractJwt = passportJWT.ExtractJwt;
 var JwtStrategy = passportJWT.Strategy;
 
@@ -154,11 +156,11 @@ console.log('Inside signup post',req.body);
 
 if(req.body.type==='customer')
 {
-registerCustomer.registerCust(req, res, connPool, bcrypt)
+registerCustomer.registerCust(req, res, kafka)
 }
 
 else{
-registerOwner.registerOwn(req, res, connPool, bcrypt);
+registerOwner.registerOwn(req, res,kafka);
 }
 
 
@@ -172,11 +174,11 @@ app.post('/signin',(req,res)=>{
 
     if(req.body.type==='customer')
     {
-        signinCustomer.signinCust(req, res, connPool, bcrypt)
+        signinCustomer.signinCust(req, res,kafka)
     }
     
     else{
-        signinOwner.signinOwn(req, res, connPool, bcrypt);
+        signinOwner.signinOwn(req, res,kafka);
     }
     
 
@@ -187,11 +189,11 @@ app.post('/update',passport.authenticate('jwt', { session: false }),(req,res)=>{
     console.log('Inside update info..',req.body);
     if(req.body.type==='customer')
     {
-        updateUser.updateUser(req, res, connPool)
+        updateUser.updateUser(req, res, kafka)
     }
     
     else{
-        updateOwner.updateOwner(req, res, connPool);
+        updateOwner.updateOwner(req, res, kafka);
     }
 
 })  
@@ -201,11 +203,11 @@ app.post('/loadProfileData',passport.authenticate('jwt', { session: false }),(re
     console.log('Inside loading of profile info..',req.body);
     if(req.body.type==='customer')
     {
-        loadCustProfile.loadCustProfile(req, res, connPool)
+        loadCustProfile.loadCustProfile(req, res,kafka)
     }
     
     else{
-        loadOwnerProfile.loadOwnerProfile(req, res, connPool);
+        loadOwnerProfile.loadOwnerProfile(req, res, kafka);
     }
 
 })
@@ -217,7 +219,7 @@ app.post('/loadSectionData',passport.authenticate('jwt', { session: false }),(re
 
     console.log('Inside load section data here',req.body)
 
-        loadSectionData.loadSectionData(req, res, connPool);
+        loadSectionData.loadSectionData(req, res, kafka);
     
 })
 
@@ -225,7 +227,7 @@ app.post('/loadSectionData',passport.authenticate('jwt', { session: false }),(re
 
 app.post('/addSection',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
-    addSection.addSection(req, res, connPool);
+    addSection.addSection(req, res, kafka);
 
 })
 
@@ -234,7 +236,7 @@ app.post('/addSection',passport.authenticate('jwt', { session: false }),(req,res
 
 app.post('/updateSection',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
-    updateSection.updateSection(req, res, connPool);
+    updateSection.updateSection(req, res, kafka);
 
 })
 
@@ -243,7 +245,7 @@ app.post('/updateSection',passport.authenticate('jwt', { session: false }),(req,
 app.post('/deleteSection',passport.authenticate('jwt', { session: false }), function (req, res) {
     console.log("Inside delete function");
 
-    deleteSection.deleteSection(req, res, connPool)
+    deleteSection.deleteSection(req, res, kafka)
   
 });
 
@@ -252,14 +254,14 @@ app.post('/deleteSection',passport.authenticate('jwt', { session: false }), func
 
 app.post('/sendMessage',passport.authenticate('jwt', { session: false }), function (req, res) {
     console.log("Inside send  Message");
-    sendMessage.sendMessage(req, res)
+    sendMessage.sendMessage(req, res, kafka)
   
 });
 
 //addMenu  
 app.post('/addMenu',passport.authenticate('jwt', { session: false }),(req,res)=>{
     console.log('File path',req.file)
-    addMenu.addMenu(req, res, connPool);
+    addMenu.addMenu(req, res, kafka);
 
 })
 
@@ -275,28 +277,22 @@ app.post('/upload',passport.authenticate('jwt', { session: false }),upload.singl
     }
     console.log('Final Image to push',req.body)
     if(req.body.type==='Menu')
-   saveImagetoMenu.saveImagetoMenu(req,res,connPool);
+   saveImagetoMenu.saveImagetoMenu(req,res,kafka);
    else if(req.body.type==='Customer')
-   saveImagetoCustomer.saveImagetoCustomer(req,res,connPool);
+   saveImagetoCustomer.saveImagetoCustomer(req,res,kafka);
    else if(req.body.type==='Owner')
-   saveImagetoOwner.saveImagetoOwner(req,res,connPool);
+   saveImagetoOwner.saveImagetoOwner(req,res,kafka);
   else
-  saveImagetoRestaurant.saveImagetoRestaurant(req,res,connPool);
+  saveImagetoRestaurant.saveImagetoRestaurant(req,res,kafka);
 
 })
 
 
-// //loadMenu
-// app.post('/loadMenu', passport.authenticate('jwt', { session: false }),(req,res)=>{
-
-//     //loadMenu.loadMenu(req, res, connPool);
-//     res.json("Success! You can not see this without a token");
-// })
 
 //loadMenu
 app.post('/loadMenu',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
-    loadMenu.loadMenu(req, res, connPool);
+    loadMenu.loadMenu(req, res, kafka);
    // res.json("Success! You can not see this without a token");
 })
 
@@ -304,7 +300,7 @@ app.post('/loadMenu',passport.authenticate('jwt', { session: false }),(req,res)=
 
 app.post('/deleteMenu',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
-    deleteMenu.deleteMenu(req, res, connPool);
+    deleteMenu.deleteMenu(req, res, kafka);
 
 })
 
@@ -313,7 +309,7 @@ app.post('/deleteMenu',passport.authenticate('jwt', { session: false }),(req,res
 
 app.post('/updateMenu',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
-    updateMenu.updateMenu(req, res, connPool);
+    updateMenu.updateMenu(req, res, kafka);
 
 })
 
@@ -321,7 +317,7 @@ app.post('/updateMenu',passport.authenticate('jwt', { session: false }),(req,res
 
 app.post('/searchDishes',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
-    searchDishes.searchDishes(req, res, connPool);
+    searchDishes.searchDishes(req, res, kafka);
 
 })
 
@@ -330,14 +326,14 @@ app.post('/searchDishes',passport.authenticate('jwt', { session: false }),(req,r
 
 app.post('/loadRestaurant',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
-    loadRestaurant.loadRestaurant(req, res, connPool);
+    loadRestaurant.loadRestaurant(req, res, kafka);
 
 })
 
 //order
 app.post('/order',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
-    order.order(req, res, connPool);
+    order.order(req, res, kafka);
 
 })
 
@@ -345,28 +341,28 @@ app.post('/order',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
 app.post('/pastorder',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
-    pastorder.pastorder(req, res, connPool);
+    pastorder.pastorder(req, res, kafka);
 
 })
 
 // Load Upcoming order  upComingOrder
 app.post('/upComingOrder',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
-    upComingOrder.upComingOrder(req, res, connPool);
+    upComingOrder.upComingOrder(req, res, kafka);
 
 })
 
 //Load Upcoming Restaurant Order  
 app.post('/upComingRestaurantOrder',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
-    upComingRestaurantOrder.upComingRestaurantOrder(req, res, connPool);
+    upComingRestaurantOrder.upComingRestaurantOrder(req, res, kafka);
 
 })
 
 // Change Order State  changeOrderState
 app.post('/changeOrderState',passport.authenticate('jwt', { session: false }),(req,res)=>{
 
-    changeOrderState.changeOrderState(req, res, connPool);
+    changeOrderState.changeOrderState(req, res, kafka);
 
 })
 

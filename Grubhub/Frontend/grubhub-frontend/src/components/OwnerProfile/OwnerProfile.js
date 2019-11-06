@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import * as actions from '../actions/actions';
 import cookie from 'react-cookies';
 import { Link } from 'react-router-dom';
+import {reactAddress} from '../../global/globalVar'
 
 
 class OwnerProfile extends Component{
@@ -259,7 +260,7 @@ changeNumber=()=>{
                 Image:
                 <br/>
               {/* <b> {this.props.name===""?this.props.objLogin.cust_name:this.props.objLogin.cust_name} </b> */}
-              <img src={'http://localhost:3001/' + this.props.owner_image} style={{ height: "200px", width: "200px" }}></img>
+              <img src={reactAddress + this.props.owner_image} style={{ height: "200px", width: "200px" }}></img>
                 <a onClick={this.changeImage} class='customALign'>Edit</a>
             </div>
             <div id='imageedit' style={{display : 'none'}}>
@@ -283,7 +284,7 @@ changeNumber=()=>{
                 Restaurant Image:
                 <br/>
               {/* <b> {this.props.name===""?this.props.objLogin.cust_name:this.props.objLogin.cust_name} </b> */}
-              <img src={'http://localhost:3001/' + this.props.rest_image} style={{ height: "200px", width: "200px" }}></img>
+              <img src={reactAddress + this.props.rest_image} style={{ height: "200px", width: "200px" }}></img>
                 <a onClick={this.changeRestImage} class='customALign'>Edit</a>
             </div>
             <div id='imageRestedit' style={{display : 'none'}}>
