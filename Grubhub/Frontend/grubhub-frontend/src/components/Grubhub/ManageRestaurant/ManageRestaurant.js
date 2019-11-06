@@ -82,7 +82,7 @@ console.log('Section id',i)
 
   componentWillMount(){
 
-let restaurant_id = cookie.load('restaurant_id')
+let restaurant_id = localStorage.getItem('restaurant_id')
 
  this.props.loadSectionData({id:restaurant_id});
  
@@ -91,7 +91,7 @@ let restaurant_id = cookie.load('restaurant_id')
     
     render(){
         let redirectVar = null;
-      if(!cookie.load('owner_id')){
+      if(!localStorage.getItem('owner_id')){
         console.log('loggin out owner id');
           redirectVar = <Redirect to= "/"/>
       }

@@ -236,7 +236,7 @@ class ManageMenu extends Component {
       return <div />
     }
 
-    if (!cookie.load('owner_id')) {
+    if (!localStorage.getItem('owner_id')) {
       console.log('Not logged in owner')
       redirectVar = <Redirect to="/" />
     }

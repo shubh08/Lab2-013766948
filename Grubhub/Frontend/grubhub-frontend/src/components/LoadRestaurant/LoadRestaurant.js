@@ -153,10 +153,10 @@ return menuMap
 
 
     orderNow = (total) => {
-        let cust_id = cookie.load('cust_id')
-        let cust_fname = cookie.load('cust_fname')
-        let cust_lname = cookie.load('cust_lname')
-        let cust_address = cookie.load('cust_address')
+        let cust_id = localStorage.getItem('cust_id')
+        let cust_fname = localStorage.getItem('cust_fname')
+        let cust_lname = localStorage.getItem('cust_lname')
+        let cust_address = localStorage.getItem('cust_address')
 
         let orderItems = this.state.orderData;
         let restaurant_id = this.state.restaurantid;
@@ -226,7 +226,7 @@ return menuMap
         console.log('Final HTML Vieweeee',menuFinalView)
 
         let redirectVar = null
-        if (!cookie.load('cust_id')) {
+        if (!localStorage.getItem('cust_id')) {
 
             redirectVar = <Redirect to="/" />
         }

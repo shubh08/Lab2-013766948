@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Navbar from '../Navbar/Navbar';
 import axios from 'axios';
 import cookie from 'react-cookies';
+
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import './login.css';
@@ -20,12 +21,12 @@ e.preventDefault()
   render() {
     let redirectVar = null;
 
-    if (cookie.load('cust_id')) {
+    if (localStorage.getItem('cust_id')) {
       redirectVar = <Redirect to="/customer/home" />
     }
 
     
-    else if(cookie.load('owner_id')){
+    else if(localStorage.getItem('owner_id')){
       redirectVar = <Redirect to= "/restaurant/manage/profile"/>
   }
   

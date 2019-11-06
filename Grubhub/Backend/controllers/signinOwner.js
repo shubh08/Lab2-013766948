@@ -16,10 +16,10 @@ const signinOwn = (req, res,kafka) =>{
             bcrypt.compare(pass, owner[0].owner_hash, function (err, status) {
                 if (status) {
                     console.log('Login Success!')
-                    res.cookie('owner_id', String(owner[0]._id), { maxAge: 900000, httpOnly: false, path: '/' });
-                    res.cookie('owner_email', owner[0].owner_email, { maxAge: 900000, httpOnly: false, path: '/' });
-                    res.cookie('owner_fname', owner[0].owner_fname, { maxAge: 900000, httpOnly: false, path: '/' });
-                    res.cookie('owner_lname', owner[0].owner_lname, { maxAge: 900000, httpOnly: false, path: '/' });
+                    // res.cookie('owner_id', String(owner[0]._id), { maxAge: 900000, httpOnly: false, path: '/' });
+                    // res.cookie('owner_email', owner[0].owner_email, { maxAge: 900000, httpOnly: false, path: '/' });
+                    // res.cookie('owner_fname', owner[0].owner_fname, { maxAge: 900000, httpOnly: false, path: '/' });
+                    // res.cookie('owner_lname', owner[0].owner_lname, { maxAge: 900000, httpOnly: false, path: '/' });
 
                     // owner.toArray(function(err, results){
                     //     console.log('owneromer signinvalue',results)

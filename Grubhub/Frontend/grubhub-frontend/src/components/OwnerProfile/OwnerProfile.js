@@ -22,7 +22,7 @@ console.log('Inside Construtor!');
 getUploadData = (e,type)=>{
   e.preventDefault();
   console.log('type is',type);
-  let loggedinID = cookie.load('owner_id')
+  let loggedinID = localStorage.getItem('owner_id')
   console.log('Cookie',loggedinID)
   console.log('Object Value hererere',this.props);
   let object = {
@@ -44,7 +44,7 @@ console.log('final object to send to db for owner profile updatehererere',object
 
 componentWillMount(){
 
-   let loggedinID = cookie.load('owner_id')
+   let loggedinID = localStorage.getItem('owner_id')
  console.log('Cookie',loggedinID)
 this.props.loadProfileData({id:loggedinID,type:'owner'});
 
@@ -98,7 +98,7 @@ else {
 
 imageUpload = (e, menu) => {
 
-  let loggedinID = cookie.load('owner_id')
+  let loggedinID = localStorage.getItem('owner_id')
   console.log('Cookie',loggedinID)
 
  
@@ -112,8 +112,8 @@ this.props.uploadMenu(data);
 
 imageRestUpload = (e, menu) => {
 
-  let loggedinID = cookie.load('restaurant_id')
-  let loggedOwnerID = cookie.load('owner_id')
+  let loggedinID = localStorage.getItem('restaurant_id')
+  let loggedOwnerID = localStorage.getItem('owner_id')
   console.log('Cookie',loggedinID)
 
  
@@ -208,7 +208,7 @@ changeNumber=()=>{
         return <div />
     }
 
-    if(!cookie.load('owner_id')){
+    if(!localStorage.getItem('owner_id')){
         console.log('Not logged in owner')
         redirectVar = <Redirect to= "/"/>
     }

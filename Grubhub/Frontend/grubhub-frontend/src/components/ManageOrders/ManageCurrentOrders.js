@@ -26,7 +26,7 @@ class ManageCurrentOrders extends Component{
 
   componentWillMount(){
 
-    let owner_id = cookie.load('owner_id')
+    let owner_id = localStorage.getItem('owner_id')
     
 
      this.props.upComingRestaurantOrder({id:owner_id});
@@ -57,7 +57,7 @@ class ManageCurrentOrders extends Component{
   }
 
   sendMessage = (orderid)=>{
-    let owner_id = cookie.load('owner_id')
+    let owner_id = localStorage.getItem('owner_id')
      console.log('The message to be sent is',this.state.message)
      this.props.sendMessageProps({type:'Owner',order_id:orderid,message:this.state.message,id:owner_id});
 
@@ -65,7 +65,7 @@ class ManageCurrentOrders extends Component{
 
 
      changeOrderState = (orderid)=>{
-      let owner_id = cookie.load('owner_id')
+      let owner_id = localStorage.getItem('owner_id')
       console.log('Order State is',this.state.orderState,orderid)
       this.props.changeOrderStateProps({status:this.state.orderState,id:owner_id,order_id:orderid});
 

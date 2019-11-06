@@ -125,8 +125,8 @@ console.log('Herer in the redirectHomeeeee')
 
     componentWillMount() {
 
-let rest_name = cookie.load('rest_name')
-  let restaurantid = cookie.load('owner_id')
+let rest_name = localStorage.getItem('rest_name')
+  let restaurantid = localStorage.getItem('owner_id')
   this.setState({
     rest_name:rest_name
   })
@@ -144,7 +144,7 @@ let rest_name = cookie.load('rest_name')
 
         
         let redirectVar = null
-        if (!cookie.load('owner_id')) {
+        if (!localStorage.getItem('owner_id')) {
 
             redirectVar = <Redirect to="/" />
         }

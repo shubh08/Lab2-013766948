@@ -54,7 +54,7 @@ class CustomerHome extends Component{
   
     componentWillMount(){
   
-//   let restaurant_id = cookie.load('restaurant_id')
+//   let restaurant_id = localStorage.getItem('restaurant_id')
   
 //    this.props.loadSectionData({id:restaurant_id});
    
@@ -62,7 +62,7 @@ class CustomerHome extends Component{
   
    componentDidMount(){
   
-    //   let restaurant_id = cookie.load('restaurant_id')
+    //   let restaurant_id = localStorage.getItem('restaurant_id')
       
     //   this.setState({
     //       restaurant_id:restaurant_id
@@ -73,7 +73,7 @@ class CustomerHome extends Component{
       
       render(){
           let redirectVar = null;
-        if(!cookie.load('cust_id')){
+        if(!localStorage.getItem('cust_id')){
           
             redirectVar = <Redirect to= "/"/>
         }

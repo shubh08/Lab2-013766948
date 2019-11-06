@@ -27,7 +27,7 @@ class UpcomingOrder extends Component{
 
 
 
-    let cust_id = cookie.load('cust_id')
+    let cust_id = localStorage.getItem('cust_id')
     
      this.props.upComingOrder({id:cust_id});
 
@@ -62,7 +62,7 @@ class UpcomingOrder extends Component{
     }
 
     sendMessage = (orderid)=>{
-     let cust_id = cookie.load('cust_id')
+     let cust_id = localStorage.getItem('cust_id')
       console.log('The message to be sent is',this.state.message)
       this.props.sendMessageProps({type:'Customer',order_id:orderid,message:this.state.message,id:cust_id});
 

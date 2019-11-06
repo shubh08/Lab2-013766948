@@ -72,7 +72,7 @@ console.log(this.reDirect)
 }
 
 deleteSection=(data)=>{
-    let restaurant_id = cookie.load('restaurant_id')
+    let restaurant_id = localStorage.getItem('restaurant_id')
 
 console.log('Inside section id',data.section_id)
 
@@ -83,7 +83,7 @@ this.props.deleteSectionData({deleteid:data.section_id,id:restaurant_id});
 
   componentWillMount(){
 
-let restaurant_id = cookie.load('restaurant_id')
+let restaurant_id = localStorage.getItem('restaurant_id')
 
  this.props.loadSectionData({id:restaurant_id});
  
@@ -92,7 +92,7 @@ let restaurant_id = cookie.load('restaurant_id')
     
     render(){
         let redirectVar = null;
-      if(!cookie.load('owner_id')){
+      if(!localStorage.getItem('owner_id')){
         console.log('loggin out owner id');
           redirectVar = <Redirect to= "/"/>
       }

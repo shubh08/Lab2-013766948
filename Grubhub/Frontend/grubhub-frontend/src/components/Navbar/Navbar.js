@@ -18,13 +18,13 @@ this.state=({
 
 
  handleLogout = () => {
-  cookie.remove('cust_id', { path: '/' });
+  localStorage.clear();
 }
 
 
 componentWillMount(){
-  let cust_fname = cookie.load('cust_fname')
-  let cust_lname = cookie.load('cust_lname')
+  let cust_fname = localStorage.getItem('cust_fname')
+  let cust_lname = localStorage.getItem('cust_lname')
   this.setState({
     cust_fname:cust_fname,
     cust_lname:cust_lname
@@ -34,7 +34,7 @@ componentWillMount(){
     render(){
 
       let redirectVar = null;
-      if(!cookie.load('cust_id')){
+      if(!localStorage.getItem('cust_id')){
           redirectVar = <Redirect to= "/"/>
       }
         return(

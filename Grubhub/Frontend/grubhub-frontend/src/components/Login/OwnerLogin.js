@@ -20,11 +20,11 @@ e.preventDefault()
     render() {
         let redirectVar = null;
 
-        if(cookie.load('owner_id')){
+        if(localStorage.getItem('owner_id')){
             redirectVar = <Redirect to= "/restaurant/manage/profile"/>
         }
         
-        else if (cookie.load('cust_id')) {
+        else if (localStorage.getItem('cust_id')) {
             redirectVar = <Redirect to="/customer/home" />
           }
 

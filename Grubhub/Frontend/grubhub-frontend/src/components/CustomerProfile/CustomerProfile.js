@@ -22,7 +22,7 @@ class CustomerProfile extends Component {
   getUploadData = (e,type) => {
     e.preventDefault()
     console.log('type is', type);
-    let loggedinID = cookie.load('cust_id')
+    let loggedinID = localStorage.getItem('cust_id')
     console.log('Cookie', loggedinID)
     console.log('Object Value', this.props);
     let object = {
@@ -41,7 +41,7 @@ class CustomerProfile extends Component {
 
   componentWillMount() {
 
-    let loggedinID = cookie.load('cust_id')
+    let loggedinID = localStorage.getItem('cust_id')
     console.log('Cookie', loggedinID)
     this.props.loadProfileData({ id: loggedinID, type: 'customer' });
 
@@ -58,7 +58,7 @@ class CustomerProfile extends Component {
 
   imageUpload = (e, menu) => {
 
-    let loggedinID = cookie.load('cust_id')
+    let loggedinID = localStorage.getItem('cust_id')
     console.log('Cookie', loggedinID)
 
 
@@ -147,7 +147,7 @@ class CustomerProfile extends Component {
 
       return <div />
     }
-    if (!cookie.load('cust_id')) {
+    if (!localStorage.getItem('cust_id')) {
       redirectVar = <Redirect to="/" />
     }
 

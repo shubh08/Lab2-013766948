@@ -125,7 +125,7 @@ class ManageSection extends Component {
   }
 
   deleteSection = (data) => {
-    let owner_id = cookie.load('owner_id')
+    let owner_id = localStorage.getItem('owner_id')
 
 
 
@@ -136,7 +136,7 @@ class ManageSection extends Component {
 
   componentWillMount() {
 
-    let owner_id = cookie.load('owner_id')
+    let owner_id = localStorage.getItem('owner_id')
 
     this.props.loadSectionData({ id: owner_id });
 
@@ -144,7 +144,7 @@ class ManageSection extends Component {
 
   componentDidMount() {
 
-    let owner_id = cookie.load('owner_id')
+    let owner_id = localStorage.getItem('owner_id')
 
     this.setState({
       restaurant_id: owner_id
@@ -155,7 +155,7 @@ class ManageSection extends Component {
 
   render() {
     let redirectVar = null;
-    if (!cookie.load('owner_id')) {
+    if (!localStorage.getItem('owner_id')) {
 
       redirectVar = <Redirect to="/" />
     }

@@ -17,10 +17,10 @@ const signinCust = (req, res,kafka) => {
             bcrypt.compare(pass, cust[0].cust_hash, function (err, status) {
                 if (status) {
                     console.log('Login Success!')
-                    res.cookie('cust_id', String(cust[0]._id), { maxAge: 900000, httpOnly: false, path: '/' });
-                    res.cookie('cust_email', cust[0].cust_email, { maxAge: 900000, httpOnly: false, path: '/' });
-                    res.cookie('cust_fname', cust[0].cust_fname, { maxAge: 900000, httpOnly: false, path: '/' });
-                    res.cookie('cust_lname', cust[0].cust_lname, { maxAge: 900000, httpOnly: false, path: '/' });
+                    // res.cookie('cust_id', String(cust[0]._id), { maxAge: 900000, httpOnly: false, path: '/' });
+                    // res.cookie('cust_email', cust[0].cust_email, { maxAge: 900000, httpOnly: false, path: '/' });
+                    // res.cookie('cust_fname', cust[0].cust_fname, { maxAge: 900000, httpOnly: false, path: '/' });
+                    // res.cookie('cust_lname', cust[0].cust_lname, { maxAge: 900000, httpOnly: false, path: '/' });
 
                     console.log('Customer id value',typeof String(cust[0]._id))
                     const response = cust[0];

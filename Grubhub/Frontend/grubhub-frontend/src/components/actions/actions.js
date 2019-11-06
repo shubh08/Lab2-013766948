@@ -1,5 +1,6 @@
 
 import axios from 'axios'
+import cookie from 'react-cookies'
 
 import {reactAddress} from '../../global/globalVar'
 
@@ -10,13 +11,30 @@ export const valueMapper = (e) =>{
 
 export const loginAsync = (obj) =>{
     console.log('Herere in Async',obj);
+
+    if(obj.type==='customer'){
+        localStorage.setItem("cust_id",obj._id);
+        localStorage.setItem("cust_email",obj.cust_email);
+        localStorage.setItem("cust_fname",obj.cust_fname);
+        localStorage.setItem("cust_lname",obj.cust_lname);
+    }
+
+    else{
+        localStorage.setItem("owner_id",obj._id);
+        localStorage.setItem("owner_email",obj.owner_email);
+        localStorage.setItem("owner_fname",obj.owner_fname);
+        localStorage.setItem("owner_lname",obj.owner_lname);
+    }
+                   
     localStorage.setItem("JCT",obj.token);
+    
     return {type:'Login',value:obj};
 }
 
 
 export const loadProfileDataAsync = (obj) =>{
     console.log('Herere in Async',obj);
+  
     return {type:'LoadProfileData',value:obj};
 }
 

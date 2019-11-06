@@ -80,7 +80,7 @@ viewSection = (data)=>{
   
    componentDidMount(){
   
-    //   let restaurant_id = cookie.load('restaurant_id')
+    //   let restaurant_id = localStorage.getItem('restaurant_id')
       
     //   this.setState({
     //       restaurant_id:restaurant_id
@@ -91,7 +91,7 @@ viewSection = (data)=>{
       
       render(){
           let redirectVar = null;
-        if(!cookie.load('owner_id')){
+        if(!localStorage.getItem('owner_id')){
           
             redirectVar = <Redirect to= "/"/>
         }

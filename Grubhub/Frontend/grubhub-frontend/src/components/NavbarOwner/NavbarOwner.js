@@ -18,8 +18,8 @@ class NavbarOwner extends Component {
 
 
     componentWillMount(){
-      let owner_fname = cookie.load('owner_fname')
-      let owner_lname = cookie.load('owner_lname')
+      let owner_fname = localStorage.getItem('owner_fname')
+      let owner_lname = localStorage.getItem('owner_lname')
       console.log('Owner Name',owner_fname,'sdsd',owner_lname)
       this.setState({
         owner_fname:owner_fname,
@@ -28,14 +28,14 @@ class NavbarOwner extends Component {
     }
   
  handleLogout = () => {
-  cookie.remove('owner_id', { path: '/' });
+  localStorage.clear();
 }
 
 
     render(){
 
       let redirectVar = null;
-      if(!cookie.load('owner_id')){
+      if(!localStorage.getItem('owner_id')){
         console.log('loggin out owner id');
           redirectVar = <Redirect to= "/"/>
       }

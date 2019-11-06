@@ -6,11 +6,11 @@ class NavbarInitial extends Component {
     render(){
 
       let redirectVar = null;
-      if(cookie.load('cust_id')){
+      if(localStorage.getItem('cust_id')){
           redirectVar = <Redirect to= "/customer/home"/>
       }
 
-      if(cookie.load('owner_id')){
+      if(localStorage.getItem('owner_id')){
         redirectVar = <Redirect to= "/restaurant/home"/>
     }
         return(
