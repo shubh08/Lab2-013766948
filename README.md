@@ -1,5 +1,5 @@
 # Lab2-013766948
-Lab2 Project -- # Grubhub Prototype
+## Grubhub Prototype
 This project is created as part of the individual project assignment of CMPE-273 class.
 It is a fully functional prototype of popular online food ordering application GRUBHUB . It has 2 separate modules for customer and restaurant owner each.
 
