@@ -9,4 +9,4 @@ On the customer's homepage, there is one search section, using which users can s
 
 Restaurant Owner also has to first signup and then log in to access the application. He/she can update profile and restaurant information, create/update/delete food sections and add menu items to those sections along with the food images. He/she can also track the orders posted by the customers for his restaurant and update the status as per the availability of the items. Kafka message queues are implemented to improve scalability and chat feature for both customer and restaurant owner is also integrated with the system.  
 
-This application is hosted on at (http://bit.ly/31yDoKS).
+This application is hosted on at (http://18.221.150.163:3000/).
