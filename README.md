@@ -1,6 +1,6 @@
-# Lab2-013766948
-## Grubhub Prototype
 
+# Grubhub Prototype
+ 
 It is a fully functional prototype of popular online food ordering application GRUBHUB . It has 2 separate modules for customer and restaurant owner each.
 
 The customer has to first sign up and then login to access the application. The password is stored securely using the hashing feature provided by the Bcrypt npm package. A customer can update his/her profile information (updating name, address, phone number and uploading his/her image.)
