@@ -28,4 +28,4 @@ This application is hosted on **AWS platform.**
 - **Kafka message queues** are integrated to improve scalability and chat feature for both customer and restaurant owner is also integrated with the system. 
 
 
-This application is hosted on at (http://18.221.150.163:3000/).
+This application is hosted  at (http://18.221.150.163:3000/).
